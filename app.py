@@ -77,11 +77,10 @@ def load_or_train_model():
         })
         prediction = model.predict(test_data)
         
-        st.info("✅ Loaded pre-trained model from joblib file")
         return model, None, None, None, None, True
         
     except Exception as e:
-        st.warning(f"Could not load existing model ({str(e)}). Training new model...")
+        pass
         
     # Train new model if loading fails
     data = load_data()
@@ -127,9 +126,8 @@ def load_or_train_model():
     # Save the newly trained model
     try:
         joblib.dump(pipeline, 'insurance_pipeline_new.joblib')
-        st.success("✅ New model trained and saved as 'insurance_pipeline_new.joblib'")
     except Exception as e:
-        st.warning(f"Could not save model: {str(e)}")
+        pass
     
     return pipeline, train_score, test_score, X_test, y_test, False
 
